@@ -8,6 +8,28 @@ public class Main {
          * значение в массиве. Полученный массив, сумма и среднеарифметическое возвращаются в метод main, где должны
          * быть отображены
          */
+        Mass thread1 = new Mass(10);
+        thread1.start();
+        thread1.setName("Generate");
+
+        try {
+            thread1.join();
+
+            Mass thread2 = new Mass(thread1.getMass());
+            thread2.setName("Sum");
+            thread2.start();
+            Mass thread3 = new Mass(thread1.getMass());
+            thread3.setName("Avg");
+            thread3.start();
+
+            thread2.join();
+            thread3.join();
+            System.out.println(thread2.getSum());
+            System.out.println(thread3.getAvg());
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
 
