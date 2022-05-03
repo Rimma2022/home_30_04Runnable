@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         /**
@@ -9,23 +11,20 @@ public class Main {
          * быть отображены
          */
         Mass thread1 = new Mass(10);
-        thread1.start();
         thread1.setName("Generate");
-
+        thread1.start();
         try {
             thread1.join();
 
-            Mass thread2 = new Mass(thread1.getMass());
+            Mass thread2 = new Mass(thread1.getMass().length);
             thread2.setName("Sum");
-            thread2.start();
-            Mass thread3 = new Mass(thread1.getMass());
+            Mass thread3 = new Mass(thread1.getMass().length);
             thread3.setName("Avg");
+            thread2.setMass(thread1.getMass());
+            thread3.setMass(thread1.getMass());
+            thread2.start();
             thread3.start();
-
-            thread2.join();
-            thread3.join();
-            System.out.println(thread2.getSum());
-            System.out.println(thread3.getAvg());
+            System.out.println();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
